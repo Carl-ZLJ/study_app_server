@@ -4,12 +4,14 @@ import bodyParser from 'body-parser'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
 import user from './controllers/user'
+import student from './controllers/student'
 
 const appInit = function() {
+	dotenv.config()
 	const app: Application = express()
+	app.use(morgan('dev'))
 	app.use(bodyParser.urlencoded({ extended: false }))
 	app.use(bodyParser.json())
-	app.use(morgan('dev'))
 
 	app.listen(process.env.SERVER_PORT, () => {
 		console.log('Server running...')
@@ -33,6 +35,7 @@ const connectMongoDb = function() {
 
 const registeRouters = function(app: Application): void {
 	app.use('/users', user)
+	app.use('/students', student)
 
 	app.get('/*', (req: Request, res: Response) => {
 		res.send('This is a server, not for vistors...')
@@ -40,7 +43,6 @@ const registeRouters = function(app: Application): void {
 }
 
 const __main = function() {
-	dotenv.config()
 	const app = appInit()
 	connectMongoDb()
 	registeRouters(app)
