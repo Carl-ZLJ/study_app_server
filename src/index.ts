@@ -5,6 +5,7 @@ import morgan from 'morgan'
 import dotenv from 'dotenv'
 import user from './controllers/user'
 import student from './controllers/student'
+import task from './controllers/task'
 
 const appInit = function() {
 	dotenv.config()
@@ -36,6 +37,7 @@ const connectMongoDb = function() {
 const registeRouters = function(app: Application): void {
 	app.use('/users', user)
 	app.use('/students', student)
+	app.use('/tasks', task)
 
 	app.get('/*', (req: Request, res: Response) => {
 		res.send('This is a server, not for vistors...')
