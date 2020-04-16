@@ -7,7 +7,7 @@ import user from './controllers/user'
 import student from './controllers/student'
 import task from './controllers/task'
 
-const appInit = function() {
+const appInit = function () {
 	dotenv.config()
 	const app: Application = express()
 	app.use(morgan('dev'))
@@ -20,7 +20,7 @@ const appInit = function() {
 	return app
 }
 
-const connectMongoDb = function() {
+const connectMongoDb = function () {
 	mongoose.connect(process.env.MONGO_URI!, {
 		useCreateIndex: true,
 		useNewUrlParser: true,
@@ -29,12 +29,12 @@ const connectMongoDb = function() {
 	})
 	const db = mongoose.connection
 	db.on('error', console.error.bind(console, 'connection error: '))
-	db.once('open', function() {
+	db.once('open', function () {
 		console.log('Mongodb connected...')
 	})
 }
 
-const registeRouters = function(app: Application): void {
+const registeRouters = function (app: Application): void {
 	app.use('/users', user)
 	app.use('/students', student)
 	app.use('/tasks', task)
@@ -44,7 +44,7 @@ const registeRouters = function(app: Application): void {
 	})
 }
 
-const __main = function() {
+const __main = function () {
 	const app = appInit()
 	connectMongoDb()
 	registeRouters(app)

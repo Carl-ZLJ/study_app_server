@@ -15,4 +15,10 @@ task.post('/', async (req: Request, res: Response) => {
 	task.save().then(task => res.status(200).json({ task }))
 })
 
+task.patch('/', async (req: Request, res: Response) => {
+	const task = req.body.task
+	Task.findOneAndUpdate({ _id: task._id }, { status: !task.status }, { new: true })
+		.then(data => res.status(200).json({ task: data }))
+})
+
 export default task
