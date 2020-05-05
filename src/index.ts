@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 import user from './controllers/user'
 import student from './controllers/student'
 import task from './controllers/task'
+import schedule from './controllers/schedule'
 
 const appInit = function () {
 	dotenv.config()
@@ -38,6 +39,7 @@ const registeRouters = function (app: Application): void {
 	app.use('/users', user)
 	app.use('/students', student)
 	app.use('/tasks', task)
+	app.use('/schedules', schedule)
 
 	app.get('/*', (req: Request, res: Response) => {
 		res.send('This is a server, not for vistors...')
